@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Installer Marco Polo CRM</title>
+<meta name="description" content="Installation du CRM Marco Polo de la S.A.R.L IMER — Fort Napoléon F3R, en quelques minutes.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="imer.png">
+<style>
+  :root {
+    --bg: #F3F4F0; --surface: #FFFFFF; --sunk: #E9ECE6; --line: #D7DBD2; --ink: #18201B; --muted: #5A645C;
+    --green: #00733A; --green-dark: #0A3A28; --red: #D21034; --gold: #8C6200;
+    --tricolor: linear-gradient(90deg, #00843D 0 33.4%, #FFFFFF 33.4% 66.6%, #D21034 66.6%);
+    --f-display: "Bahnschrift", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
+  h1, h2, h3 { font-family: var(--f-display); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+  a { color: var(--green); }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+
+  /* En-tête */
+  .hero { background: radial-gradient(900px 420px at 85% -20%, rgba(43, 182, 115, .35), transparent 60%), linear-gradient(180deg, #0F4D35, #0A3A28); color: #FFFFFF; padding: 36px 0 44px; }
+  .brand { display: flex; align-items: center; gap: 16px; }
+  .brand img { width: 108px; border-radius: 8px; box-shadow: 0 4px 18px rgba(0, 0, 0, .35); }
+  .brand b { display: block; font-family: var(--f-display); font-size: 26px; line-height: 1.1; }
+  .brand span { color: rgba(255, 255, 255, .72); font-size: 14px; }
+  .flag { display: flex; gap: 4px; height: 5px; width: 160px; margin: 22px 0 18px; }
+  .flag i { flex: 1; border-radius: 3px; background: #2BB673; }
+  .flag i:nth-child(2) { background: #FFFFFF; } .flag i:nth-child(3) { background: var(--red); }
+  .hero h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; max-width: 22ch; }
+  .hero p { color: rgba(255, 255, 255, .82); max-width: 56ch; margin: 10px 0 24px; font-size: 17px; }
+  .dl { display: inline-flex; align-items: center; gap: 12px; background: #FFFFFF; color: var(--green-dark); text-decoration: none; font-family: var(--f-display); font-weight: 700; font-size: 20px; padding: 16px 26px; border-radius: 14px; box-shadow: 0 8px 26px rgba(0, 0, 0, .3); transition: transform .12s; }
+  .dl:hover { transform: translateY(-2px); }
+  .dl svg { width: 26px; height: 26px; }
+  .meta { margin-top: 12px; font-size: 14px; color: rgba(255, 255, 255, .72); }
+
+  /* Ouvert sur un téléphone */
+  .mobile { display: none; margin: 0 0 22px; background: #FFF4D6; color: #3B2B00; border-radius: 12px; padding: 14px 16px; border-left: 5px solid #F2C14E; }
+  .mobile b { display: block; }
+  .mobile button { margin-top: 8px; border: 0; background: var(--green-dark); color: #FFFFFF; font: inherit; font-weight: 600; padding: 8px 14px; border-radius: 9px; cursor: pointer; }
+  .is-mobile .mobile { display: block; }
+
+  /* Étapes */
+  main { padding: 34px 0 20px; }
+  .lead { color: var(--muted); margin: 0 0 22px; }
+  .step { display: grid; grid-template-columns: 54px minmax(0, 1fr); gap: 4px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 22px 22px 24px; margin-bottom: 16px; box-shadow: 0 1px 2px rgba(24, 32, 27, .06), 0 4px 14px rgba(24, 32, 27, .06); }
+  .num { grid-row: span 3; width: 46px; height: 46px; border-radius: 50%; background: var(--green); color: #FFFFFF; display: grid; place-items: center; font-family: var(--f-display); font-weight: 700; font-size: 22px; }
+  .step h2 { font-size: 21px; }
+  .step p { margin: 6px 0 0; }
+  .step .note { color: var(--muted); font-size: 14.5px; }
+  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 16px; }
+  .arrow { color: var(--muted); font-size: 26px; }
+  .click { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px; position: relative; }
+  .click::after { content: "Cliquez ici"; position: absolute; left: 50%; top: calc(100% + 9px); transform: translateX(-50%); white-space: nowrap; background: var(--red); color: #FFFFFF; font: 600 12px/1 var(--f-body); padding: 5px 8px; border-radius: 6px; }
+
+  /* Dessins des fenêtres */
+  .win { width: 300px; max-width: 100%; border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0, 0, 0, .2); font-size: 13px; line-height: 1.45; }
+  .ss { background: #0063B1; color: #FFFFFF; padding: 18px 18px 16px; min-height: 196px; display: flex; flex-direction: column; }
+  .ss h3 { font-family: "Segoe UI Light", "Segoe UI", sans-serif; font-weight: 300; font-size: 21px; line-height: 1.2; margin-bottom: 8px; }
+  .ss .lnk { text-decoration: underline; display: inline-block; margin-top: 6px; }
+  .ss .row { margin-top: auto; display: flex; gap: 8px; justify-content: flex-end; padding-top: 12px; }
+  .ss .b { border: 2px solid #FFFFFF; padding: 4px 12px; background: transparent; }
+  .ss .b.plain { border-color: rgba(255, 255, 255, .55); }
+  .ss dl { margin: 6px 0 0; display: grid; grid-template-columns: auto 1fr; gap: 0 8px; }
+  .ss dt { opacity: .85; } .ss dd { margin: 0; }
+  .browser { background: #FFFFFF; color: #202124; padding: 14px 16px; border: 1px solid #DADCE0; }
+  .browser .file { display: flex; gap: 10px; align-items: flex-start; }
+  .browser .ico { width: 30px; height: 30px; border-radius: 6px; background: #FCE8E6; color: #C5221F; display: grid; place-items: center; font-weight: 700; flex: none; }
+  .browser .row { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+  .browser .b { border: 1px solid #DADCE0; border-radius: 16px; padding: 4px 14px; color: #1A73E8; font-weight: 600; }
+  .setup { background: #FFFFFF; border: 1px solid #C8C8C8; }
+  .setup .bar { background: #F0F0F0; padding: 6px 10px; font-size: 12px; border-bottom: 1px solid #DDD; }
+  .setup .body { padding: 14px 16px; min-height: 120px; }
+  .setup .row { display: flex; justify-content: flex-end; gap: 8px; padding: 10px 14px; background: #F0F0F0; border-top: 1px solid #DDD; }
+  .setup .b { border: 1px solid #ADADAD; background: #E1E1E1; padding: 3px 16px; }
+  .setup .b.main { border-color: #0078D7; }
+  .login { background: #FFFFFF; border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; }
+  .login b { font-family: var(--f-display); font-size: 17px; }
+  .login .f { border: 1px solid var(--line); border-radius: 7px; padding: 6px 9px; color: var(--muted); }
+  .login .go { background: var(--green); color: #FFFFFF; border-radius: 8px; text-align: center; padding: 7px; font-weight: 600; }
+
+  .ok { display: flex; gap: 14px; align-items: center; background: #DCEFE3; border-radius: 14px; padding: 16px 18px; margin: 22px 0 16px; }
+  .ok svg { width: 34px; height: 34px; color: var(--green); flex: none; }
+  .help { color: var(--muted); font-size: 15px; margin: 0 0 30px; }
+  footer { border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; padding: 16px 0 28px; }
+
+  @media (max-width: 640px) {
+    .step { grid-template-columns: 1fr; padding: 18px 16px 20px; }
+    .num { grid-row: auto; width: 40px; height: 40px; font-size: 19px; }
+    .arrow { transform: rotate(90deg); width: 100%; text-align: center; }
+    .win { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand"><img src="imer.png" alt="SARL IMER Fort Napoléon F3R"><div><b>Marco Polo CRM</b><span>S.A.R.L IMER — Fort Napoléon F3R</span></div></div>
+    <div class="flag" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h1>Installez le CRM de la société en quelques minutes</h1>
+    <p>Clients, ventes, stock et documents de l'équipe, sur votre ordinateur. Suivez les 4 étapes ci-dessous : vous n'aurez à le faire qu'une seule fois.</p>
+    <div class="mobile" id="mobile">
+      <b>Ouvrez cette page sur votre ordinateur Windows.</b>
+      Le CRM s'installe sur un ordinateur, pas sur un téléphone. Envoyez-vous ce lien (par e-mail ou WhatsApp Web), puis ouvrez-le sur l'ordinateur.
+      <br><button type="button" id="copy">Copier le lien</button>
+    </div>
+    <a class="dl" id="dl" href="https://github.com/imerkarim2-arch/marco-polo-crm-mises-a-jour/releases/latest/download/Installer-Marco-Polo-CRM.exe">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5v11M7.5 10l4.5 4.5 4.5-4.5"/><path d="M4.5 16.5v2.5a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-2.5"/></svg>
+      Télécharger Marco Polo CRM
+    </a>
+    <div class="meta" id="meta">Dernière version · Windows 10 et 11 · environ 80 Mo</div>
+  </div>
+</header>
+
+<main class="wrap">
+  <p class="lead">Avant de commencer : vous devez avoir reçu de votre gérant votre <b>adresse e-mail de connexion</b> et un <b>mot de passe</b>.</p>
+
+  <section class="step">
+    <span class="num">1</span>
+    <h2>Téléchargez le fichier</h2>
+    <p>Cliquez sur le bouton vert <b>Télécharger Marco Polo CRM</b>, en haut de cette page.</p>
+    <p class="note">Si votre navigateur affiche un avertissement sur le fichier, choisissez <b>Conserver</b>. Dans Microsoft Edge : <b>…</b>, puis <b>Conserver</b>, puis <b>Conserver quand même</b>. Le fichier vient de votre société, il est sans danger.</p>
+    <div class="shots" style="grid-column: 2">
+      <div class="win browser" aria-hidden="true">
+        <div class="file"><span class="ico">!</span><div><b>Installer-Marco-Polo-CRM.exe</b><br>Ce fichier n'est pas fréquemment téléchargé.</div></div>
+        <div class="row"><span class="b">Supprimer</span><span class="b click">Conserver</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="num">2</span>
+    <h2>Ouvrez-le</h2>
+    <p>Ouvrez le fichier téléchargé (en bas ou en haut à droite du navigateur, ou dans le dossier <b>Téléchargements</b>).</p>
+    <p class="note">Windows affiche souvent une fenêtre bleue « Windows a protégé votre ordinateur » : c'est normal pour un logiciel fait pour une seule société. Cliquez sur <b>Informations complémentaires</b>, puis sur <b>Exécuter quand même</b>.</p>
+    <div class="shots" style="grid-column: 2">
+      <div class="win ss" aria-hidden="true">
+        <h3>Windows a protégé votre ordinateur</h3>
+        <div>Microsoft Defender SmartScreen a empêché le démarrage d'une application non reconnue.</div>
+        <span class="lnk click">Informations complémentaires</span>
+        <div class="row"><span class="b">Ne pas exécuter</span></div>
+      </div>
+      <span class="arrow" aria-hidden="true">→</span>
+      <div class="win ss" aria-hidden="true">
+        <h3>Windows a protégé votre ordinateur</h3>
+        <dl><dt>Application :</dt><dd>Installer-Marco-Polo-CRM.exe</dd><dt>Éditeur :</dt><dd>Éditeur inconnu</dd></dl>
+        <div class="row"><span class="b plain click">Exécuter quand même</span><span class="b">Ne pas exécuter</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="num">3</span>
+    <h2>Installez</h2>
+    <p>Laissez le dossier proposé et cliquez sur <b>Installer</b>, puis sur <b>Fermer</b>. Une icône <b>Marco Polo CRM</b> apparaît sur le bureau, et le CRM s'ouvre.</p>
+    <div class="shots" style="grid-column: 2">
+      <div class="win setup" aria-hidden="true">
+        <div class="bar">Installation de Marco Polo CRM</div>
+        <div class="body">Choisissez le dossier dans lequel installer Marco Polo CRM.<br><br><span style="color:#666">C:\Users\…\Programs\Marco Polo CRM</span></div>
+        <div class="row"><span class="b">&lt; Précédent</span><span class="b main click">Installer</span><span class="b">Annuler</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="step">
+    <span class="num">4</span>
+    <h2>Connectez-vous</h2>
+    <p>Saisissez l'adresse e-mail et le mot de passe reçus de votre gérant, puis <b>Se connecter</b>.</p>
+    <p class="note">Pour choisir votre propre mot de passe : cliquez sur <b>Mot de passe oublié ?</b> sur cet écran. Vous recevrez un e-mail avec un lien.</p>
+    <div class="shots" style="grid-column: 2">
+      <div class="win login" aria-hidden="true">
+        <b>Connexion</b>
+        <span class="f">Adresse e-mail</span>
+        <span class="f">Mot de passe</span>
+        <span class="go click">Se connecter</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="ok">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+    <div><b>C'est tout.</b> Le CRM se met ensuite à jour tout seul : quand une nouvelle version est prête, un bouton « Mettre à jour maintenant » apparaît en bas du menu. Vous n'aurez plus jamais à revenir sur cette page.</div>
+  </div>
+  <p class="help">Un problème pendant l'installation ? Contactez votre gérant.</p>
+</main>
+
+<footer><div class="wrap">S.A.R.L IMER — Fort Napoléon F3R · Page d'installation du CRM interne de la société. Le logiciel ne donne accès à aucune donnée sans un compte créé par un gérant.</div></footer>
+
+<script>
+  // Téléphone ou tablette : le CRM s'installe sur un ordinateur Windows.
+  if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) document.documentElement.classList.add('is-mobile');
+  document.getElementById('copy').addEventListener('click', function () {
+    var btn = this;
+    (navigator.clipboard ? navigator.clipboard.writeText(location.href) : Promise.reject()).then(function () { btn.textContent = 'Lien copié'; }, function () { btn.textContent = location.href; });
+  });
+  // Numéro et date de la dernière version publiée.
+  fetch('https://api.github.com/repos/imerkarim2-arch/marco-polo-crm-mises-a-jour/releases/latest')
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (rel) {
+      var size = (rel.assets || []).filter(function (a) { return a.name === 'Installer-Marco-Polo-CRM.exe'; })[0];
+      var date = new Date(rel.published_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
+      document.getElementById('meta').textContent = 'Version ' + String(rel.tag_name).replace(/^v/, '') + ' du ' + date
+        + ' · Windows 10 et 11 · ' + (size ? Math.round(size.size / 1048576) + ' Mo' : 'environ 80 Mo');
+    })
+    .catch(function () {});
+</script>
+</body>
+</html>
