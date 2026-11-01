@@ -31,7 +31,7 @@
   .flag { display: flex; gap: 4px; height: 5px; width: 160px; margin: 22px 0 18px; }
   .flag i { flex: 1; border-radius: 3px; background: #2BB673; }
   .flag i:nth-child(2) { background: #FFFFFF; } .flag i:nth-child(3) { background: var(--red); }
-  .hero h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; max-width: 22ch; }
+  .hero h1 { font-size: clamp(28px, 5vw, 40px); line-height: 1.15; max-width: 28ch; }
   .hero p { color: rgba(255, 255, 255, .82); max-width: 56ch; margin: 10px 0 24px; font-size: 17px; }
   .dl { display: inline-flex; align-items: center; gap: 12px; background: #FFFFFF; color: var(--green-dark); text-decoration: none; font-family: var(--f-display); font-weight: 700; font-size: 20px; padding: 16px 26px; border-radius: 14px; box-shadow: 0 8px 26px rgba(0, 0, 0, .3); transition: transform .12s; }
   .dl:hover { transform: translateY(-2px); }
@@ -52,13 +52,16 @@
   .step h2 { font-size: 21px; }
   .step p { margin: 6px 0 0; }
   .step .note { color: var(--muted); font-size: 14.5px; }
-  .shots { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 16px; }
+  .shots { grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin-top: 16px; min-width: 0; }
   .arrow { color: var(--muted); font-size: 26px; }
-  .click { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px; position: relative; }
-  .click::after { content: "Cliquez ici"; position: absolute; left: 50%; top: calc(100% + 9px); transform: translateX(-50%); white-space: nowrap; background: var(--red); color: #FFFFFF; font: 600 12px/1 var(--f-body); padding: 5px 8px; border-radius: 6px; }
+  /* Ce qu'il faut cliquer, entouré en rouge comme sur une capture annotée */
+  .click { outline: 3px solid var(--red); outline-offset: 3px; border-radius: 4px; box-shadow: 0 0 0 9px rgba(210, 16, 52, .14); }
+  .legend { display: inline-flex; align-items: center; gap: 6px; font-size: 13.5px; color: var(--muted); margin-top: 12px; }
+  .legend i { width: 18px; height: 12px; border: 3px solid var(--red); border-radius: 4px; }
 
   /* Dessins des fenêtres */
-  .win { width: 300px; max-width: 100%; border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0, 0, 0, .2); font-size: 13px; line-height: 1.45; }
+  .win { width: 330px; max-width: 100%; border-radius: 8px; overflow: hidden; box-shadow: 0 6px 24px rgba(0, 0, 0, .2); font-size: 13px; line-height: 1.45; padding-bottom: 2px; }
+  .win .b { white-space: nowrap; }
   .ss { background: #0063B1; color: #FFFFFF; padding: 18px 18px 16px; min-height: 196px; display: flex; flex-direction: column; }
   .ss h3 { font-family: "Segoe UI Light", "Segoe UI", sans-serif; font-weight: 300; font-size: 21px; line-height: 1.2; margin-bottom: 8px; }
   .ss .lnk { text-decoration: underline; display: inline-block; margin-top: 6px; }
@@ -91,6 +94,8 @@
   @media (max-width: 640px) {
     .step { grid-template-columns: 1fr; padding: 18px 16px 20px; }
     .num { grid-row: auto; width: 40px; height: 40px; font-size: 19px; }
+    .shots { grid-column: 1; }
+    .dl { font-size: 18px; padding: 14px 20px; }
     .arrow { transform: rotate(90deg); width: 100%; text-align: center; }
     .win { width: 100%; }
   }
@@ -117,14 +122,15 @@
 </header>
 
 <main class="wrap">
-  <p class="lead">Avant de commencer : vous devez avoir reçu de votre gérant votre <b>adresse e-mail de connexion</b> et un <b>mot de passe</b>.</p>
+  <p class="lead">Avant de commencer : vous devez avoir reçu de votre gérant votre <b>adresse e-mail de connexion</b> et un <b>mot de passe</b>.
+    <br><span class="legend"><i></i> Dans les dessins, ce qu'il faut cliquer est entouré en rouge.</span></p>
 
   <section class="step">
     <span class="num">1</span>
     <h2>Téléchargez le fichier</h2>
     <p>Cliquez sur le bouton vert <b>Télécharger Marco Polo CRM</b>, en haut de cette page.</p>
     <p class="note">Si votre navigateur affiche un avertissement sur le fichier, choisissez <b>Conserver</b>. Dans Microsoft Edge : <b>…</b>, puis <b>Conserver</b>, puis <b>Conserver quand même</b>. Le fichier vient de votre société, il est sans danger.</p>
-    <div class="shots" style="grid-column: 2">
+    <div class="shots">
       <div class="win browser" aria-hidden="true">
         <div class="file"><span class="ico">!</span><div><b>Installer-Marco-Polo-CRM.exe</b><br>Ce fichier n'est pas fréquemment téléchargé.</div></div>
         <div class="row"><span class="b">Supprimer</span><span class="b click">Conserver</span></div>
@@ -137,7 +143,7 @@
     <h2>Ouvrez-le</h2>
     <p>Ouvrez le fichier téléchargé (en bas ou en haut à droite du navigateur, ou dans le dossier <b>Téléchargements</b>).</p>
     <p class="note">Windows affiche souvent une fenêtre bleue « Windows a protégé votre ordinateur » : c'est normal pour un logiciel fait pour une seule société. Cliquez sur <b>Informations complémentaires</b>, puis sur <b>Exécuter quand même</b>.</p>
-    <div class="shots" style="grid-column: 2">
+    <div class="shots">
       <div class="win ss" aria-hidden="true">
         <h3>Windows a protégé votre ordinateur</h3>
         <div>Microsoft Defender SmartScreen a empêché le démarrage d'une application non reconnue.</div>
@@ -157,7 +163,7 @@
     <span class="num">3</span>
     <h2>Installez</h2>
     <p>Laissez le dossier proposé et cliquez sur <b>Installer</b>, puis sur <b>Fermer</b>. Une icône <b>Marco Polo CRM</b> apparaît sur le bureau, et le CRM s'ouvre.</p>
-    <div class="shots" style="grid-column: 2">
+    <div class="shots">
       <div class="win setup" aria-hidden="true">
         <div class="bar">Installation de Marco Polo CRM</div>
         <div class="body">Choisissez le dossier dans lequel installer Marco Polo CRM.<br><br><span style="color:#666">C:\Users\…\Programs\Marco Polo CRM</span></div>
@@ -171,7 +177,7 @@
     <h2>Connectez-vous</h2>
     <p>Saisissez l'adresse e-mail et le mot de passe reçus de votre gérant, puis <b>Se connecter</b>.</p>
     <p class="note">Pour choisir votre propre mot de passe : cliquez sur <b>Mot de passe oublié ?</b> sur cet écran. Vous recevrez un e-mail avec un lien.</p>
-    <div class="shots" style="grid-column: 2">
+    <div class="shots">
       <div class="win login" aria-hidden="true">
         <b>Connexion</b>
         <span class="f">Adresse e-mail</span>
